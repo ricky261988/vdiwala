@@ -1,0 +1,49 @@
+MS patches install status
+
+<#
+
+Script to list all installed MS Patches on a remote system and export
+.DESCRIPTION
+
+This Script is used to check for all installed MS Patches on the specified servers
+#>
+
+
+$from = kishan.chaurasiya@gmail.com
+$To = puneet.pandeyy@gmail.com
+#$cc = ricky261988@gmail.com
+$Subject= "MS Patches Status:-"
+$outfile = "C:\temp\Installed_Patches.csv"
+ 
+
+$Body = "Hi,
+ 
+Please find the attached MS Patches summary.
+
+
+Thanks,
+Kishan"
+
+## List of Servers to check for Installed Patches
+$serversToCheck = Get-Content "C:\temp\Servers.txt"
+
+## Define the Output file path
+$outfile = "C:\temp\Installed_Patches.csv"
+
+## Lopping through specified servers
+ForEach ( $server in $serversToCheck )
+
+{
+
+##Server Boot Time
+$BootTime = (Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime
+    Get-WmiObject Win32_QuickFixEngineering -ComputerName $server |
+         Where-Object { $_.InstalledOn -gt (Get-Date).AddMonths(-3) } |
+         Select-Object -Property PSComputerName, __PATH, Description, InstalledOn, HotFixID, InstalledBy, @{n='Server_Boot_Time';e={$BootTime}} |
+         Export-Csv -Path $outfile -Append
+}
+
+
+              $SMTPServer = "SMTP.xyz.com"
+
+    Send-MailMessage -From $from -To $To -Subject $subject -Body $body -Attachments $outfile -SmtpServer $SMTPServer
