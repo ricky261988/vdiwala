@@ -47,3 +47,4 @@ $BootTime = (Get-CimInstance -ClassName win32_operatingsystem).lastbootuptime
               $SMTPServer = "SMTP.xyz.com"
 
     Send-MailMessage -From $from -To $To -Subject $subject -Body $body -Attachments $outfile -SmtpServer $SMTPServer
+# this is new line
