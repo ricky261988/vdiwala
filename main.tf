@@ -1,8 +1,5 @@
 provider "azurerm" {
-  subscription_id = "ae2528e2-32eb-4bee-abcd-052d1e2a9d45"
-  client_id = "a9a7ea9b-dd44-4321-8439-d83df3a6dd3c"
-  client_secret = "23w8Q~-Uo8rfKXa-2gzeKmPPf~7P3ox-Hu-6sboo"
-  tenant_id = "25cc363b-77f0-4ff0-92ba-7d222ef0dcec"
+  Enter here Azure details
   features {}
 }
 
